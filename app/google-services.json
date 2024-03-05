@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "234380263795",
+    "project_id": "codeapi-40b09",
+    "storage_bucket": "codeapi-40b09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234380263795:android:5bc494b4b613650c068506",
+        "android_client_info": {
+          "package_name": "com.ph32395.lap1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWADC87NoGfaj_TVlUay5nN3B_lN1OK_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
