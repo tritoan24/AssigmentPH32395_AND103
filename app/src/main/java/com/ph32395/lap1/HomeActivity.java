@@ -1,33 +1,82 @@
 package com.ph32395.lap1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.airbnb.lottie.Lottie;
-import com.airbnb.lottie.LottieAnimationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.ph32395.lap1.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class HomeActivity extends AppCompatActivity {
 
+    private UserAdapter userAdapter;
+
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        LottieAnimationView animationView = findViewById(R.id.animationView);
+        userAdapter = new UserAdapter(this);
+        binding.recyclerView.setAdapter(userAdapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        animationView.setOnClickListener(new View.OnClickListener() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userAdapter.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                    // Kiểm tra xem id của tài khoản có khớp với id của người dùng hiện tại không
+                    if (!userModel.getUid().equals(currentUserId)) {
+                        userAdapter.add(userModel);
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi
             }
         });
+    binding.animationView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FirebaseAuth.getInstance().signOut();
+            Intent in = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(in);
+        }
+    });
+
     }
 }
+
+

@@ -20,12 +20,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     private TextInputEditText edemail, edpassword, edrppassword;
     private Button btnsignup;
     private TextView txtLogin;
     private FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         btnsignup = findViewById(R.id.btnsignup);
         txtLogin = findViewById(R.id.txtLogin);
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
 
 
 
@@ -78,6 +82,8 @@ public class SignupActivity extends AppCompatActivity {
                                     startActivity(in);
                                     Toast.makeText(SignupActivity.this, "Đăng Kí Thành Công!",
                                             Toast.LENGTH_SHORT).show();
+                                    UserModel userModel = new UserModel(FirebaseAuth.getInstance().getUid(),email);
+                                    databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel);
 
                                 } else {
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());

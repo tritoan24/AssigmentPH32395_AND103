@@ -36,6 +36,7 @@
         android:layout_margin="10dp"
         android:hint="password"
         android:gravity="center"
+        app:passwordToggleEnabled="true"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edpasswordLg"
@@ -43,6 +44,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/custtomedit"
             android:paddingLeft="10dp"
+            android:inputType="textPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
