@@ -119,7 +119,7 @@ public class LoginOtpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginOtpActivity.this, "Đăng Nhập Thành Công!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginOtpActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(LoginOtpActivity.this, MainActivity2.class);
                             startActivity(intent);
 
                             FirebaseUser user = task.getResult().getUser();

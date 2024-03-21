@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Edit Impor Student"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        ></TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Name">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAge"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Age">
+
+        <EditText
+            android:id="@+id/etAge"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMsv"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="MSV">
+
+        <EditText
+            android:id="@+id/etMsv"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilImageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Image URL">
+
+        <EditText
+            android:id="@+id/etImageUrl"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/checkStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Status: Chưa Ra Trường" />
+
+
+</LinearLayout>

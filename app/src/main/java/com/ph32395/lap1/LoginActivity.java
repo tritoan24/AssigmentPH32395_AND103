@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(LoginActivity.this, "Đăng Nhập Thành công", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this,MainActivity2.class);
                                     startActivity(intent);
 
                                 } else {

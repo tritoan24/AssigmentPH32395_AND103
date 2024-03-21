@@ -8,4 +8,9 @@
     </style>
 
     <style name="Theme.Lap1" parent="Base.Theme.Lap1" />
+    <style name="Theme.Lap1.NoActionBar" parent="Base.Theme.Lap1">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

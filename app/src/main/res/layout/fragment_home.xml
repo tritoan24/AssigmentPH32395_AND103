@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Students"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <ListView
+        android:id="@+id/lvCustomListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fabCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_add"
+        android:elevation="10dp"
+        />
+
+</FrameLayout>
