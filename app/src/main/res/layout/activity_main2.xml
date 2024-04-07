@@ -16,6 +16,12 @@
         android:orientation="horizontal"
         android:background="#606060"
         android:padding="10dp">
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/profile"
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:layout_width="0dp"

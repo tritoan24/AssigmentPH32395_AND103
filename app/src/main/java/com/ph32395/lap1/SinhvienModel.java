@@ -1,15 +1,18 @@
 package com.ph32395.lap1;
 
-public class SinhvienModel {
+import java.io.Serializable;
+import java.util.List;
+
+public class SinhvienModel  implements Serializable {
 
     private String _id;
     private String name;
     private int age;
     private String msv;
     private boolean status;
-    private String image;
+    private List<String> image; // Thay vì String image, sử dụng List<String> để lưu nhiều đường dẫn ảnh
 
-    public SinhvienModel(String name, int age, String msv, String image, boolean status) {
+    public SinhvienModel(String name, int age, String msv, List<String> image, boolean status) {
         this.name = name;
         this.age = age;
         this.msv = msv;
@@ -49,6 +52,14 @@ public class SinhvienModel {
         this.msv = msv;
     }
 
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
+
     public boolean isStatus() {
         return status;
     }
@@ -63,13 +74,7 @@ public class SinhvienModel {
             return "Chưa ra trường";
         }
     }
-    public void setImage(String image) {
-        this.image = image;
-    }
 
-    public String getImage() {
-        return image;
-    }
 
 
 }

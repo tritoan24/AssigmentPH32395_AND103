@@ -67,6 +67,12 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
+    implementation ("jp.wasabeef:glide-transformations:4.3.0")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-database")
+
 
 
 
