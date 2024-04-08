@@ -22,14 +22,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
@@ -37,94 +46,59 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SinhvienAdapter extends BaseAdapter {
+public class SinhvienAdapter extends RecyclerView.Adapter<SinhvienAdapter.ViewHolder> {
 
-
-    Context context;
-    List<SinhvienModel> mList = new ArrayList<>();
-    private SinhvienModel sinhvien;
-    private LinearLayout imageContainer;
-    private  ImageView choiceImage;
-    private ArrayList<String> imageUrls = new ArrayList<>(); // Mảng để lưu các đường dẫn URL của ảnh
-
-
-
-
+    private Context context;
+    private List<SinhvienModel> mList;
 
     // Constructor
-    public SinhvienAdapter(Activity activity, List<SinhvienModel> mList) {
-        this.context = activity;
+    public SinhvienAdapter(Context context, List<SinhvienModel> mList) {
+        this.context = context;
         this.mList = mList;
-
     }
 
-
-
+    @NonNull
     @Override
-    public int getCount() {
-        return mList.size();
-    }
-
-
-    @Override
-    public Object getItem(int position) {
-        return position;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.sv_list_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public long getItemId(int i) {
-        return mList.size();
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        SinhvienModel sinhvien = mList.get(position);
 
-    @SuppressLint("MissingInflatedId")
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-        View rowView = inflater.inflate(R.layout.sv_list_item, parent, false);
-
-        ImageView imgAvatar = rowView.findViewById(R.id.imgAvatar);
-        TextView tvName = rowView.findViewById(R.id.tvName);
-        TextView tvTuoi = rowView.findViewById(R.id.tvTuoi);
-        TextView tvMssv = rowView.findViewById(R.id.tvMssv);
-        TextView tvStatus = rowView.findViewById(R.id.tvstatus);
-        ImageView imgxoa = rowView.findViewById(R.id.imgDelete);
-        ImageView imgsua = rowView.findViewById(R.id.imgEdit);
-
-
-        final SinhvienModel sinhvien = mList.get(position);
         // Hiển thị ảnh đầu tiên từ mảng images (nếu có)
         if (sinhvien.getImage() != null && sinhvien.getImage().size() > 0) {
-            Picasso.get().load(sinhvien.getImage().get(0)).into(imgAvatar);
+            Picasso.get().load(sinhvien.getImage().get(0)).into(holder.imgAvatar);
         }
 
-        tvName.setText(sinhvien.getName());
-        tvTuoi.setText(String.valueOf(sinhvien.getAge()));
-        tvMssv.setText(sinhvien.getMsv());
+        holder.tvName.setText(sinhvien.getName());
+        Locale vietnamLocale = new Locale("vi", "VN");
+        NumberFormat vietnamFormat = NumberFormat.getCurrencyInstance(vietnamLocale);
+        String priceFormatted = vietnamFormat.format(sinhvien.getAge());
+        holder.tvTuoi.setText(priceFormatted);
+        holder.tvMssv.setText(sinhvien.getMsv());
 
         String statusText = sinhvien.getStatusText();
-        tvStatus.setText(statusText);
+        holder.tvStatus.setText(statusText);
 
         if (sinhvien.isStatus()) {
-            tvStatus.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
+            holder.tvStatus.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
         } else {
-            tvStatus.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
+            holder.tvStatus.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
         }
 
-        imgxoa.setOnClickListener(new View.OnClickListener() {
+        holder.imgxoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Lấy vị trí của mục được nhấp vào
-                int position = (int) view.getTag();
+                int position = holder.getAdapterPosition();
                 showDeleteConfirmationDialog(position);
             }
         });
-        imgxoa.setTag(position);
 
-
-
-        imgsua.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditSinhvienActivity.class);
@@ -133,14 +107,79 @@ public class SinhvienAdapter extends BaseAdapter {
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(context, Chitietsv.class);
+                intent.putExtra("sinhvien", sinhvien);
+                context.startActivity(intent);
+                return false;
+            }
+        });
 
-        return rowView;
+        holder.addToCartIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SinhvienModel sinhvien = mList.get(position);
+
+                String firstImage = "";
+                if (sinhvien.getImage() != null && sinhvien.getImage().size() > 0) {
+                    firstImage = sinhvien.getImage().get(0); // Lấy ảnh đầu tiên từ mảng ảnh
+                }
+
+                // Tạo một đối tượng Map chứa thông tin của sinh viên và chỉ lưu ảnh đầu tiên
+                Map<String, Object> gioHangItem = new HashMap<>();
+                gioHangItem.put("id", sinhvien.get_id());
+                gioHangItem.put("tensp", sinhvien.getName());
+                gioHangItem.put("giatien", sinhvien.getAge());
+                gioHangItem.put("hang", sinhvien.getMsv());
+                gioHangItem.put("image", firstImage); // Chỉ lưu ảnh đầu tiên
+                gioHangItem.put("status", sinhvien.getStatusText());
+                gioHangItem.put("quantity", 1);
+
+                // Lưu thông tin sinh viên vào Realtime Database
+                FirebaseDatabase.getInstance().getReference().child("gio_hang").push().setValue(gioHangItem)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, "Lỗi khi thêm vào giỏ hàng: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgAvatar, imgxoa,addToCartIcon;
+        TextView tvName, tvTuoi, tvMssv, tvStatus;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvTuoi = itemView.findViewById(R.id.tvTuoi);
+            tvMssv = itemView.findViewById(R.id.tvMssv);
+            tvStatus = itemView.findViewById(R.id.tvstatus);
+            imgxoa = itemView.findViewById(R.id.imgDelete);
+            addToCartIcon = itemView.findViewById(R.id.addToCartIcon);
+        }
     }
 
     private void showDeleteConfirmationDialog(final int position) {
         Activity activity = (Activity) context;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
 
         builder.setTitle("Xác nhận xóa");
         builder.setMessage("Bạn có chắc chắn muốn xóa?");
@@ -180,8 +219,5 @@ public class SinhvienAdapter extends BaseAdapter {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
-
 }
 

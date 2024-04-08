@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
@@ -46,6 +47,7 @@ public class AddSV extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sv);
 
+
         etName = findViewById(R.id.etName);
         etAge = findViewById(R.id.etAge);
         etMsv = findViewById(R.id.etMsv);
@@ -62,9 +64,9 @@ public class AddSV extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    checkStatus.setText("Status: Đã ra trường");
+                    checkStatus.setText("Status: Hết Hàng");
                 } else {
-                    checkStatus.setText("Status: Chưa ra trường");
+                    checkStatus.setText("Status: Còn Hàng");
                 }
             }
         });
@@ -86,8 +88,8 @@ public class AddSV extends AppCompatActivity {
                 int age = 0;
                 try {
                     age = Integer.parseInt(ageStr);
-                    if (age < 0 || age > 120) {
-                        Toast.makeText(AddSV.this, "Tuổi phải nằm trong khoảng từ 0 đến 120!", Toast.LENGTH_SHORT).show();
+                    if (age < 0) {
+                        Toast.makeText(AddSV.this, "Tiền Phải Lớn hơn 0", Toast.LENGTH_SHORT).show();
                         return;
                     }                } catch (NumberFormatException e) {
                     Toast.makeText(AddSV.this, "Vui lòng nhập tuổi là một số nguyên!", Toast.LENGTH_SHORT).show();
@@ -135,10 +137,10 @@ public class AddSV extends AppCompatActivity {
             @Override
             public void onResponse(Call<SinhvienModel> call, Response<SinhvienModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(AddSV.this, "Thêm sinh viên thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddSV.this, "Thêm sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                     // Xử lý sau khi thêm thành công
                 } else {
-                    Toast.makeText(AddSV.this, "Thêm sinh viên thất bại!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddSV.this, "Thêm sản phẩm thất bại!", Toast.LENGTH_SHORT).show();
                     // Xử lý khi thêm thất bại
                     Log.e("AddSV", "Lỗi khi thêm sinh viên: ");
                 }
@@ -201,7 +203,10 @@ public class AddSV extends AppCompatActivity {
     }
 
     private void uploadImagesToFirebaseStorage(Uri[] imageUris) {
-        for (int i = 0; i < imageUris.length; i++) {
+        int totalImages = imageUris.length;
+        AtomicInteger uploadedImages = new AtomicInteger(0);
+
+        for (int i = 0; i < totalImages; i++) {
             // Tạo một đường dẫn mới trong Storage cho mỗi ảnh
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imageSP/" + UUID.randomUUID().toString());
             storageRef.putFile(imageUris[i])
@@ -210,6 +215,13 @@ public class AddSV extends AppCompatActivity {
                         storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                             imageUrls.add(uri.toString());
                             Log.d("UploadImage", "Image URL: " + uri.toString());
+                            // Tăng số lượng ảnh đã tải lên thành công
+                            int uploadedCount = uploadedImages.incrementAndGet();
+                            // Kiểm tra xem đã tải lên thành công tất cả các ảnh chưa
+                            if (uploadedCount == totalImages) {
+                                // Nếu đã tải lên thành công tất cả các ảnh, hiển thị Toast
+                                Toast.makeText(this, "Tải ảnh lên thành công", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     })
                     .addOnFailureListener(e -> {

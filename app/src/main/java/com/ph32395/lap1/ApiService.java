@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -24,4 +25,20 @@ public interface ApiService {
 
         @DELETE("api/delete-sv/{id}")
         Call<Void> deleteSinhvien(@Path("id") String id);
+
+        @GET("api/search-sv")
+        Call<List<SinhvienModel>> searchSinhvien(@Query("name") String name);
+
+        @GET("api/sort-sv")
+        Call<List<SinhvienModel>> sortSinhvien();
+        @GET("api/sort-sv-desc")
+        Call<List<SinhvienModel>> sortSinhvienAsc();
+        @GET("api/load-more")
+        Call<List<SinhvienModel>> loadMore(@Query("page") int page);
+        //them vao gio hang
+        @POST("api/add-cart")
+        Call<SinhvienModel> addTocart(@Body SinhvienModel sinhvien);
+
+
+
 }

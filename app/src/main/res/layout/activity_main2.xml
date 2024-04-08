@@ -11,35 +11,79 @@
     tools:context=".MainActivity2">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="#606060"
-        android:padding="10dp">
+
+        >
         <ImageView
             android:id="@+id/imgProfile"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/profile"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_margin="7dp"
+            />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="List Students"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"/>
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            android:layout_width="290dp"
             android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:background="@drawable/custtombutton"
-            android:text="Đăng xuất" />
+            android:gravity="center"
+            android:hint="Name">
+
+            <EditText
+                android:id="@+id/edsearch"
+                android:background="@drawable/custtomedit"
+                android:layout_width="260dp"
+                android:layout_height="30dp"
+                android:paddingLeft="10dp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+     <TextView
+         android:id="@+id/tvSoluongSp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textSize="19dp"
+            android:textStyle="bold"
+            android:text="0"
+         android:textColor="#fff"
+         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tangdan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giam Dan"
+            android:textSize="12dp"
+            android:textColor="#5A5A5A"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_margin="7dp"
+            />
+        <TextView
+            android:id="@+id/giamdan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tang Dan"
+            android:textSize="12dp"
+            android:textColor="#5A5A5A"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_margin="7dp"
+            />
+
+
     </LinearLayout>
 
 
@@ -50,8 +94,8 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity2">
 
-    <ListView
-        android:id="@+id/lvCustomListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcClerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"

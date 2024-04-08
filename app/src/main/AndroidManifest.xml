@@ -25,6 +25,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Chitietsv"
+            android:exported="false" />
+        <activity
             android:name=".EditSinhvienActivity"
             android:exported="false" />
         <activity

@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:padding="15dp"
             android:drawableEnd="@drawable/name"
-            android:hint="Name" />
+            android:hint="Tên Sản Phẩm" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
-        android:hint="Age"
+        android:hint="Giá"
         android:drawableEnd="@drawable/age"
         android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,7 +82,7 @@
         android:layout_height="match_parent"
         android:padding="15dp"
         android:drawableEnd="@drawable/msv"
-        android:hint="MSV" />
+        android:hint="Loại" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Status: Chưa Ra Trường" />
+        android:text="Status: Còn Hàng" />
 
 
         <LinearLayout
