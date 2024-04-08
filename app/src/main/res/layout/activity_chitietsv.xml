@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="478dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".AddSV"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true"
+    android:layout_gravity="center"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Impor Sản Phẩm"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/imageContainerif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+    </LinearLayout>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/name"
+       android:gravity="center"
+       android:layout_marginTop="20dp"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:text="nguyentritoan"
+       android:layout_marginBottom="10dp"
+       />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tuoi"
+        android:gravity="center"
+
+        android:text="22"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        android:text="da ra truong"
+        android:gravity="center"
+
+
+        />
+
+        <Button
+            android:id="@+id/cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="46dp"
+            android:background="#D81305"
+            android:text="Close"
+
+            />
+
+
+
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>

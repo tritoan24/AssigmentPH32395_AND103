@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Edit Impor SP"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        />
+    <ImageView
+        android:id="@+id/choiImageed"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/image1"
+        android:layout_margin="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/imageContainered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Tên Sản Phẩm">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAge"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Giá">
+
+        <EditText
+            android:id="@+id/etAge"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMsv"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:hint="Loại">
+
+        <EditText
+            android:id="@+id/etMsv"
+            android:layout_margin="7dp"
+            android:background="@drawable/custtomedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <CheckBox
+        android:id="@+id/checkStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Status: Hết Hàng" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+        <Button
+            android:id="@+id/btncancleed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="#D81305"
+            android:text="Hủy"
+
+            />
+
+        <Button
+            android:id="@+id/btnAdded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/custtombutton"
+            android:text="Edit" />
+
+        </LinearLayout>
+
+
+
+</LinearLayout>
